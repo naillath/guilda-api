@@ -1,0 +1,1 @@
+console.log("⚔️ Guilda API online. Bem-vindo à guilda!");

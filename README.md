@@ -1,0 +1,1 @@
+API REST para gerenciamento de uma guilda de aventureiros, será desenvolvido com Node.js, Express e PostgreSQL.
