@@ -193,6 +193,68 @@ Resposta:
 
 ---
 
+### ✏️ Atualizar aventureiro
+
+**PUT**
+
+```http
+PUT /aventureiros/:id
+```
+
+Exemplo:
+
+```http
+PUT /aventureiros/1
+```
+Exemplo de corpo da requisição:
+
+```json
+{
+    "nome": "Apheru",
+    "classe": "Guerreiro de Adamantium"
+}
+```
+
+Resposta:
+
+```json
+{
+    "id": 1,
+    "nome": "Apheru",
+    "classe": "Guerreiro de Adamantium"
+}
+```
+
+Caso o aventureiro não exista:
+
+```json
+{
+    "mensagem": "Aventureiro não encontrado"
+}
+```
+
+A API retorna o status:
+
+```text
+404 Not Found
+```
+
+Caso `nome` ou `classe` não seja informado:
+
+```json
+{ "mensagem": "Nome e classe são obrigatórios" }
+```
+
+A API retorna o status:
+
+```text
+400 Bad Request
+```
+
+O `nome` e a `classe` são campos obrigatórios para atualizar um aventureiro.
+
+---
+
 ## 🧪 Testando com Postman
 
 As requisições podem ser testadas utilizando o **Postman**.
@@ -253,7 +315,7 @@ O projeto será evoluído gradualmente para implementar outras operações de um
 * [x] GET `/aventureiros`
 * [x] GET `/aventureiros/:id`
 * [x] POST `/aventureiros`
-* [ ] PUT `/aventureiros/:id`
+* [x] PUT `/aventureiros/:id`
 * [ ] PATCH `/aventureiros/:id`
 * [ ] DELETE `/aventureiros/:id`
 * [ ] Validação dos dados recebidos
