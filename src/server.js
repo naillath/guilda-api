@@ -36,6 +36,28 @@ app.post('/aventureiros', (req, res) => {
     res.json(aventureiro);
 });
 
+app.put('/aventureiros/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const aventureiro = aventureiros.find(aventureiro => aventureiro.id === id);
+
+    if(!aventureiro) {
+        return res.status(404).json({
+            mensagem: "Aventureiro não encontrado"
+        });
+    }
+
+    if(!req.body.nome || !req.body.classe) {
+        return res.status(400).json({
+            mensagem: "Nome e classe são obrigatórios"
+        });
+    }
+
+    const indice = aventureiros.findIndex(aventureiro => aventureiro.id === id);
+
+    res.json(aventureiros[indice] = {id: id, ...req.body});
+
+});
+
 app.listen(port, () => {
     console.log(`Servidor da guilda, rodando na porta ${port}.`);
 });
