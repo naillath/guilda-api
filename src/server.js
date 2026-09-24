@@ -19,7 +19,7 @@ app.get('/aventureiros/:id', (req, res) => {
     const id = Number(req.params.id);
     const aventureiro = aventureiros.find(aventureiro => aventureiro.id === id);
 
-    if(!aventureiro) {
+    if (!aventureiro) {
         return res.status(404).json({
             mensagem: "Aventureiro não encontrado"
         });
@@ -33,20 +33,20 @@ app.post('/aventureiros', (req, res) => {
 
     aventureiros.push(aventureiro);
 
-    res.json(aventureiro);
+    res.status(201).json(aventureiro);
 });
 
 app.put('/aventureiros/:id', (req, res) => {
     const id = Number(req.params.id);
     const aventureiro = aventureiros.find(aventureiro => aventureiro.id === id);
 
-    if(!aventureiro) {
+    if (!aventureiro) {
         return res.status(404).json({
             mensagem: "Aventureiro não encontrado"
         });
     }
 
-    if(!req.body.nome || !req.body.classe) {
+    if (!req.body.nome || !req.body.classe) {
         return res.status(400).json({
             mensagem: "Nome e classe são obrigatórios"
         });
@@ -54,8 +54,28 @@ app.put('/aventureiros/:id', (req, res) => {
 
     const indice = aventureiros.findIndex(aventureiro => aventureiro.id === id);
 
-    res.json(aventureiros[indice] = {id: id, ...req.body});
+    res.status(200).json(aventureiros[indice] = { id: id, ...req.body });
+});
 
+app.patch('/aventureiros/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const aventureiro = aventureiros.find(aventureiro => aventureiro.id === id);
+
+    if (!aventureiro) {
+        return res.status(404).json({
+            mensagem: "Aventureiro não encontrado"
+        });
+    }
+
+    if (req.body.nome !== undefined) {
+        aventureiro.nome = req.body.nome;
+    }
+
+    if (req.body.classe !== undefined) {
+        aventureiro.classe = req.body.classe;
+    }
+
+    res.status(200).json(aventureiro);
 });
 
 app.listen(port, () => {
