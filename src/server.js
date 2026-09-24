@@ -12,7 +12,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/aventureiros', (req, res) => {
-    res.json(aventureiros);
+    res.status(200).json({
+        mensagem: "Lista de aventureiros",
+        aventureiros: aventureiros
+    });
 });
 
 app.get('/aventureiros/:id', (req, res) => {
@@ -25,7 +28,10 @@ app.get('/aventureiros/:id', (req, res) => {
         });
     }
 
-    res.json(aventureiro);
+    res.status(200).json({
+        mensagem: "Aventureiro encontrado",
+        aventureiro: aventureiro
+    });
 });
 
 app.post('/aventureiros', (req, res) => {
@@ -33,7 +39,10 @@ app.post('/aventureiros', (req, res) => {
 
     aventureiros.push(aventureiro);
 
-    res.status(201).json(aventureiro);
+    res.status(201).json({
+        mensagem: "Aventureiro regitrado com sucesso",
+        aventureiro: aventureiro
+    });
 });
 
 app.put('/aventureiros/:id', (req, res) => {
@@ -54,7 +63,10 @@ app.put('/aventureiros/:id', (req, res) => {
 
     const indice = aventureiros.findIndex(aventureiro => aventureiro.id === id);
 
-    res.status(200).json(aventureiros[indice] = { id: id, ...req.body });
+    res.status(200).json({
+        mensagem: "Aventureiro atualizado com sucesso",
+        aventureiro: aventureiros[indice] = { id: id, ...req.body }
+    });
 });
 
 app.patch('/aventureiros/:id', (req, res) => {
@@ -75,7 +87,31 @@ app.patch('/aventureiros/:id', (req, res) => {
         aventureiro.classe = req.body.classe;
     }
 
-    res.status(200).json(aventureiro);
+    res.status(200).json({
+        mensagem: "Aventureiro atualizado com sucesso",
+        aventureiro: aventureiro});
+});
+
+app.delete('/aventureiros/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const aventureiro = aventureiros.find(aventureiro => aventureiro.id === id);
+
+    if(!aventureiro) {
+        return res.status(404).json({
+            mensagem: "Aventureiro não encontrado"
+        });
+    }
+
+    const indice = aventureiros.findIndex(aventureiro => aventureiro.id === id);
+
+    if (indice !== -1) {
+        aventureiros.splice(indice, 1);
+    }
+
+    res.status(200).json({
+        mensagem: "Aventureiro deletado com sucesso",
+        aventureiro: aventureiro   
+    });
 });
 
 app.listen(port, () => {
